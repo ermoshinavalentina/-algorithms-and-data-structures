@@ -1,3 +1,4 @@
+//таблица значений
 #include <iostream>
 #include <stdlib.h>
 #include <windows.h> 
@@ -47,4 +48,76 @@ char* Rus(const char* text)
 {
     CharToOemA(text, bufRus);
     return bufRus;
+}
+
+// выстрелы по мишени
+#include <iostream>
+#include <math.h>
+using namespace std;
+
+int main()
+{
+    setlocale(LC_ALL, "");
+    float R, x, y;
+    cout << "Введите R:" << endl;
+    cin >> R;
+    for (int i = 0; i < 10; i++)
+    {
+        cout << "x" << i + 1 << ":";
+        cin >> x;
+        cout << "y" << i + 1 << ":";
+        cin >> y;
+        cout << endl;
+        if ((x * x + y * y <= R * R) && ((y >= 0))) // условие для полуокружности
+            cout << "Попал" << endl;
+        else
+        {
+            if (x >= y && x <= 0 && y > -R) //условие для треугольника
+                cout << "Попал" << endl;
+            else
+            {
+                cout << "Не попал" << endl;
+            }
+        }
+    }
+    cout << endl;
+    system("pause");
+    return 0;
+}
+
+//ряд тейлора
+#include <iostream>
+#include <cmath>
+
+using namespace std;
+
+int main()
+{
+    setlocale(LC_CTYPE, "rus");
+    double x_begin, x_end, x_step, n, sum = 0;
+
+    cout << "Ввведите интервал x[-1 <= x < 1]:\n\t";
+    cout<< "Начальное знаначение:\n\t";
+    cin >> x_begin;
+    cout << "Конечное значение:\n\t";
+    cin>> x_end;
+    cout << "Введите шаг:\n\t ";
+    cin >> x_step;
+    cout << "Введите точность рассчета [0 < n < 10]: ";
+    cin >> n;
+
+  cout << "| x | ln(1 - x)| Taylor | \n";
+
+    for (double x = x_begin; x <= x_end; x += x_step)
+    {
+        sum += x;
+        for (int i = 1; i < n; i++)
+            if (i % 2 == 0)
+                sum += pow(x, double(i)) / i;
+        cout << x << " | " << log(1 - x) << " | " << -sum << endl;
+        sum = 0;
+    }
+    cin.get();
+    cin.get();
+    return 0;
 }
