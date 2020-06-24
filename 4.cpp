@@ -1,38 +1,39 @@
+#include "pch.h"
 #include <iostream>
 using namespace std;
-struct DoubleList //îïèñàíèå óçëà ñïèñêà
+struct DoubleList //описание узла списка
 {
-	int data; //èíôîðìàöèîííîå ïîëå
-	DoubleList* next; //óêàçàòåëü íà ñëåäóþùèé ýëåìåíò
-	DoubleList* prev; //óêàçàòåëü íà ïðåäûäóùèé ýëåìåíò
+	int data; //информационное поле
+	DoubleList *next; //указатель на следующий элемент
+	DoubleList *prev; //указатель на предыдущий элемент
 };
-DoubleList* head; //óêàçàòåëü íà ïåðâûé ýëåìåíò ñïèñêà
-//**********************ÄÎÁÀÂËÅÍÈÅ ÝËÅÌÅÍÒÀ**********************
+DoubleList *head; //указатель на первый элемент списка
+//**********************ДОБАВЛЕНИЕ ЭЛЕМЕНТА**********************
 void AddList(int value, int position)
 {
-	DoubleList* node = new DoubleList; //ñîçäàíèå íîâîãî ýëåìåíòà
-	node->data = value; //ïðèñâîåíèå ýëåìåíòó çíà÷åíèÿ
-	if (head == NULL) //åñëè ñïèñîê ïóñò
+	DoubleList *node = new DoubleList; //создание нового элемента
+	node->data = value; //присвоение элементу значения
+	if (head == NULL) //если список пуст
 	{
-		node->next = node; //óñòàíîâêà óêàçàòåëÿ next
-		node->prev = node; //óñòàíîâêà óêàçàòåëÿ prev
-		head = node; //îïðåäåëÿåòñÿ ãîëîâà ñïèñêà
+		node->next = node; //установка указателя next
+		node->prev = node; //установка указателя prev
+		head = node; //определяется голова списка
 	}
 	else
 	{
-		DoubleList* p = head;
+		DoubleList *p = head;
 		for (int i = position; i > 1; i--) p = p->next;
 		p->prev->next = node;
 		node->prev = p->prev;
 		node->next = p;
 		p->prev = node;
 	}
-	cout << "\nÝëåìåíò äîáàâëåí...\n\n";
+	cout << "\nЭлемент добавлен...\n\n";
 }
-//***********************ÓÄÀËÅÍÈÅ ÝËÅÌÅÍÒÀ***********************
+//***********************УДАЛЕНИЕ ЭЛЕМЕНТА***********************
 int DeleteList(int position)
 {
-	if (head == NULL) { cout << "\nÑïèñîê ïóñò\n\n"; return 0; }
+	if (head == NULL) { cout << "\nСписок пуст\n\n"; return 0; }
 	if (head == head->next)
 	{
 		delete head;
@@ -40,23 +41,23 @@ int DeleteList(int position)
 	}
 	else
 	{
-		DoubleList* a = head;
+		DoubleList *a = head;
 		for (int i = position; i > 1; i--) a = a->next;
 		if (a == head) head = a->next;
 		a->prev->next = a->next;
 		a->next->prev = a->prev;
 		delete a;
 	}
-	cout << "\nÝëåìåíò óäàëåí...\n\n";
+	cout << "\nЭлемент удален...\n\n";
 }
-//*************************ÂÛÂÎÄ ÑÏÈÑÊÀ*************************
+//*************************ВЫВОД СПИСКА*************************
 void PrintList()
 {
-	if (head == NULL) cout << "\nÑïèñîê ïóñò\n\n";
+	if (head == NULL) cout << "\nСписок пуст\n\n";
 	else
 	{
-		DoubleList* a = head;
-		cout << "\nÝëåìåíòû ñïèñêà: ";
+		DoubleList *a = head;
+		cout << "\nЭлементы списка: ";
 		do
 		{
 			cout << a->data << " ";
@@ -64,26 +65,26 @@ void PrintList()
 		} while (a != head); cout << "\n\n";
 	}
 }
-//************************ÃËÀÂÍÀß ÔÓÍÊÖÈß************************
-int main()
+//************************ГЛАВНАЯ ФУНКЦИЯ************************
+void main()
 {
 	setlocale(LC_ALL, "Rus");
 	int value, position, x;
 	do
 	{
-		cout << "1. Äîáàâèòü ýëåìåíò" << endl;
-		cout << "2. Óäàëèòü ýëåìåíò" << endl;
-		cout << "3. Âûâåñòè ñïèñîê" << endl;
-		cout << "0. Âûéòè" << endl;
-		cout << "\nÍîìåð îïåðàöèè > "; cin >> x;
+		cout << "1. Добавить элемент" << endl;
+		cout << "2. Удалить элемент" << endl;
+		cout << "3. Вывести список" << endl;
+		cout << "0. Выйти" << endl;
+		cout << "\nНомер операции > "; cin >> x;
 		switch (x)
 		{
 		case 1:
-			cout << "Çíà÷åíèå > "; cin >> value;
-			cout << "Ïîçèöèÿ > "; cin >> position;
+			cout << "Значение > "; cin >> value;
+			cout << "Позиция > "; cin >> position;
 			AddList(value, position); break;
 		case 2:
-			cout << "Ïîçèöèÿ > "; cin >> position;
+			cout << "Позиция > "; cin >> position;
 			DeleteList(position); break;
 		case 3: PrintList(); break;
 		}
