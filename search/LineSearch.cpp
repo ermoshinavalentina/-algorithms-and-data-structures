@@ -1,29 +1,30 @@
-﻿#include <iostream>
-#include <ctime>
-using namespace std;
-int i, N;
+﻿#include <iostream> //поток ввода-вывода данных
+#include <ctime> //системное время
+using namespace std; //использование пространства имен std
+int i, N; 
 //линейный поиск
 int LineSearch(int A[], int key)
 {
-	for (i = 0; i < N; i++)
-		if (A[i] == key) return i;
-	return -1;
+	for (i = 0; i < N; i++) //цикл от i до N
+		if (A[i] == key) return i; //если элемент массива равен ключу, то возвращается значение i
+	return -1; 
 }
 //главная функция
 void main()
 {
-	setlocale(LC_ALL, "Rus");
-	int key, A[1000];
-	srand(time(NULL));
-	cout << "Размер массива > "; cin >> N;
-	cout << "Искомый элемент > "; cin >> key;
+	setlocale(LC_ALL, "Rus"); //русская кодировка в консоли
+	int key, A[1000]; //ключ, массив
+	srand(time(NULL)); //обнулить системное время
+	cout << "Размер массива > "; cin >> N; //ввести размер массива с клавиатуры
+	cout << "Искомый элемент > "; cin >> key; //ввести ключ
 	cout << "Исходный массив: ";
-	for (i = 0; i < N; i++)
+	for (i = 0; i < N; i++) //цикл от i до N
 	{
-		A[i] = rand() % 10;
-		cout << A[i] << " ";
+		A[i] = rand() % 10; //сформировать массив случайный чисел
+		cout << A[i] << " "; //вывести массив на консоль
 	}
-	if (LineSearch(A, key) == -1) cout << "\nЭлемент не найден";
-	else cout << "\nНомер элемента: " << LineSearch(A, key) + 1;
+	if (LineSearch(A, key) == -1) cout << "\nЭлемент не найден"; //если функция возвращает -1, то вывести сообщение, что элемент не найден
+	else cout << "\nНомер элемента: " << LineSearch(A, key) + 1; //если функция вернула значения ключа, вывести номер элемента и прибавить единицу
+	//так как нумерация элементов массива начинается с 0
 	system("pause>>void");
 }
