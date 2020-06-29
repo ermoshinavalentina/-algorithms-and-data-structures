@@ -1,12 +1,12 @@
-﻿#include <iostream>
+﻿#include <iostream> //поток ввода вывода данных
 
-int fibonacci(int number)
+int fibonacci(int number) //функция вычисления числа Фибоначчи
 {
-    if (number == 0)
+    if (number == 0) //если число = 0
         return 0; // базовый случай (условие завершения)
-    if (number == 1)
+    if (number == 1) //если число = 1
         return 1; // базовый случай (условие завершения)
-    return fibonacci(number - 1) + fibonacci(number - 2);
+    return fibonacci(number - 1) + fibonacci(number - 2); //возвращаемое значение 
 }
 
 // Выводим первые 13 чисел Фибоначчи
